@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /carpinart/
+
+    # Redirigir la raíz /carpinart/ hacia public/
+    RewriteRule ^$ public/ [L]
+
+    # Redirigir cualquier otra petición que no sea un archivo existente hacia public/index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ public/index.php?url=$1 [L,QSA]
+</IfModule>
