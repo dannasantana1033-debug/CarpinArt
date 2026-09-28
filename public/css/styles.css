@@ -1,33 +1,41 @@
-/* public/css/styles.css */
+/* ==========================================================================
+   CARPINART - Estilos Globales y del Sistema (styles.css)
+   ========================================================================== */
 
 :root {
-    /* Paleta de Colores Vivos y Cálidos */
-    --primary: #D96B27;        /* Naranja Ámbar / Madera cálida */
-    --primary-hover: #B85213;  /* Ámbar Oscuro */
-    --secondary: #2A5235;      /* Verde Bosque / Acento orgánico */
-    --accent: #F4A261;         /* Dorado/Miel cálido */
-    --dark-wood: #2B1810;      /* Café Ébano para textos principales */
-    --bg-light: #F8F5F0;       /* Fondo Crema Suave */
-    --card-bg: #FFFFFF;        /* Blanco Puro */
-    --border-color: #E2D7CD;   /* Borde tono madera clara */
-    --text-muted: #6B5E55;     /* Café Neutro para descripciones */
+    --primary: #D96B27;          /* Naranja Ámbar / Madera cálida */
+    --primary-hover: #B85213;    /* Ámbar Oscuro */
+    --primary-dark: #A04000;     /* Tono profundo para sombras y hovers */
+    --secondary: #2A5235;        /* Verde Bosque / Acento orgánico */
+    --accent: #F4A261;           /* Dorado/Miel cálido */
+    --wood-dark: #2B1810;        /* Café Ébano para textos principales y headers */
+    --wood-medium: #4E342E;      /* Café medio para degradados */
+    --bg-light: #F8F5F0;         /* Fondo Crema Suave */
+    --card-bg: #FFFFFF;          /* Blanco Puro */
+    --border-color: #E2D7CD;     /* Borde tono madera clara */
+    --text-muted: #6B5E55;       /* Café Neutro para descripciones */
     --shadow: 0 10px 25px rgba(43, 24, 16, 0.08);
 }
 
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--bg-light);
-    color: var(--dark-wood);
+    color: var(--wood-dark);
 }
 
-/* Header & Navbar */
+/* ==========================================================================
+   HEADER & NAVEGACIÓN PRINCIPAL
+   ========================================================================== */
 .main-header {
-    background-color: var(--dark-wood);
+    background-color: var(--wood-dark);
     border-bottom: 4px solid var(--primary);
     padding: 0.8rem 1.5rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header-container {
@@ -36,6 +44,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .brand-logo {
@@ -43,12 +52,6 @@ body {
     align-items: center;
     gap: 12px;
     text-decoration: none;
-}
-
-.logo-icon {
-    width: 38px;
-    height: 38px;
-    fill: var(--primary);
 }
 
 .brand-text {
@@ -61,6 +64,7 @@ body {
     font-weight: 700;
     color: #FFFFFF;
     line-height: 1.1;
+    text-decoration: none;
 }
 
 .brand-name .highlight {
@@ -74,14 +78,13 @@ body {
     text-transform: uppercase;
 }
 
-/* Navegación */
-.main-nav {
+.nav-links {
     display: flex;
-    align-items: center;
     gap: 1.2rem;
+    align-items: center;
 }
 
-.nav-link {
+.nav-links a, .nav-link {
     color: #E0E0E0;
     text-decoration: none;
     font-weight: 500;
@@ -89,356 +92,41 @@ body {
     transition: color 0.2s;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-links a:hover, .nav-link:hover, .nav-link.active {
     color: var(--primary);
 }
 
-.btn-highlight {
+.user-welcome {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.btn-highlight, .btn-register {
     background-color: var(--primary);
-    color: #FFF;
+    color: #FFF !important;
     padding: 0.5rem 1.2rem;
-    border-radius: 6px;
+    border-radius: 8px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     transition: background-color 0.2s;
 }
 
-.btn-highlight:hover {
+.btn-highlight:hover, .btn-register:hover {
     background-color: var(--primary-hover);
-}
-
-/* Contenedor Principal / Formulario */
-.main-content {
-    max-width: 900px;
-    margin: 2.5rem auto;
-    padding: 0 1rem;
-}
-
-.quote-card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 2.5rem;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
-}
-
-.quote-card h1 {
-    font-size: 2rem;
-    color: var(--dark-wood);
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-}
-
-.quote-card .subtitle {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    margin-bottom: 2rem;
-}
-
-/* Encabezados de Sección */
-.section-title {
-    display: flex;
-    align-items: center;
-    font-size: 1.2rem;
-    color: var(--secondary);
-    border-left: 5px solid var(--primary);
-    padding-left: 10px;
-    margin-top: 2rem;
-    margin-bottom: 1.2rem;
-    font-weight: 600;
-}
-
-/* Form Controls */
-.form-group {
-    margin-bottom: 1.25rem;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-    font-size: 0.9rem;
-    color: var(--dark-wood);
-}
-
-input[type="text"],
-input[type="number"],
-textarea,
-select {
-    width: 100%;
-    padding: 0.75rem 0.9rem;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    box-sizing: border-box;
-    background-color: #FAFAFA;
-    transition: all 0.2s ease-in-out;
-}
-
-input:focus, textarea:focus, select:focus {
-    outline: none;
-    border-color: var(--primary);
-    background-color: #FFFFFF;
-    box-shadow: 0 0 0 3px rgba(217, 107, 39, 0.15);
-}
-
-/* Dimensiones Grid */
-.dimensions-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-}
-
-/* Botón de Envío */
-.btn-submit {
-    display: block;
-    width: 100%;
-    background-color: var(--primary);
-    color: #FFFFFF;
-    padding: 1rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 2rem;
-    box-shadow: 0 4px 12px rgba(217, 107, 39, 0.3);
-    transition: background-color 0.2s, transform 0.1s;
-}
-
-.btn-submit:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-1px);
-}
-
-
-
-
-/* public/css/auth.css */
-
-.register-wrapper, .login-wrapper {
-    min-height: 85vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1rem;
-    background: linear-gradient(135deg, #1e130c 0%, #3a2212 40%, #5d3215 70%, #d4a373 100%);
-    border-radius: 12px;
-}
-
-.register-card, .login-card {
-    width: 100%;
-    max-width: 480px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 2.8rem 2.2rem;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 0 20px rgba(212, 163, 115, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.register-header, .login-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.brand-badge {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, #e67e22, #d35400);
-    color: #ffffff;
-    font-size: 2.2rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.2rem auto;
-    box-shadow: 0 8px 20px rgba(211, 84, 0, 0.4);
-    border: 3px solid #fff;
-}
-
-.register-header h2, .login-header h2 {
-    color: #2c1d1a;
-    font-size: 2.1rem;
-    font-weight: 800;
-    margin: 0 0 0.4rem 0;
-    letter-spacing: -0.5px;
-}
-
-.register-header p, .login-header p {
-    color: #6e584f;
-    font-size: 0.95rem;
-    font-weight: 500;
-    margin: 0;
-}
-
-.form-group {
-    margin-bottom: 1.25rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.4rem;
-    color: #3e2723;
-    font-weight: 700;
-    font-size: 0.9rem;
-}
-
-.form-control {
-    width: 100%;
-    padding: 0.85rem 1.1rem;
-    background-color: #fcf8f5;
-    border: 2px solid #e2d1c3;
-    border-radius: 12px;
-    font-size: 0.98rem;
-    color: #2c1d1a;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus {
-    outline: none;
-    background-color: #ffffff;
-    border-color: #d35400;
-    box-shadow: 0 0 0 4px rgba(211, 84, 0, 0.15);
-}
-
-.btn-register, .btn-login {
-    width: 100%;
-    padding: 0.95rem;
-    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-    color: #ffffff;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.05rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(211, 84, 0, 0.35);
-    transition: all 0.3s ease;
-    margin-top: 0.8rem;
-    letter-spacing: 0.5px;
-}
-
-.btn-register:hover, .btn-login:hover {
-    background: linear-gradient(135deg, #d35400 0%, #a04000 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(211, 84, 0, 0.45);
-}
-
-.alert {
-    padding: 0.85rem 1rem;
-    border-radius: 10px;
-    margin-bottom: 1.25rem;
-    font-size: 0.88rem;
-    font-weight: 600;
-}
-
-.alert-danger {
-    background-color: #fce8e6;
-    color: #c0392b;
-    border: 1px solid #f5b7b1;
-}
-
-.register-footer, .login-footer {
-    text-align: center;
-    margin-top: 1.8rem;
-    padding-top: 1.4rem;
-    border-top: 1px solid #e8ddd5;
-    font-size: 0.92rem;
-    color: #6e584f;
-}
-
-.register-footer a, .login-footer a {
-    color: #d35400;
-    font-weight: 800;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.register-footer a:hover, .login-footer a:hover {
-    color: #a04000;
-    text-decoration: underline;
-}
-
-:root {
-    --primary: #d35400;
-    --primary-dark: #a04000;
-    --wood-dark: #2c1d1a;
-    --wood-medium: #4e342e;
-    --bg-light: #faf8f5;
-}
-
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-light);
-    color: #333;
-}
-
-/* HEADER & NAVEGACIÓN */
-.main-header {
-    background: #1e130c;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #d4a373;
-}
-
-.main-header .logo a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.4rem;
-    font-weight: bold;
-}
-
-.nav-links {
-    display: flex;
-    gap: 1.2rem;
-    align-items: center;
-}
-
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.2s;
-}
-
-.nav-links a:hover {
-    color: #d4a373;
-}
-
-.user-welcome {
-    color: #d4a373;
-    font-weight: bold;
 }
 
 .btn-logout {
-    color: #e76f51 !important;
+    color: #E76F51 !important;
+    font-weight: 600;
 }
 
-.btn-register {
-    background: #d35400;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-weight: 700;
-}
-
-.btn-register:hover {
-    background: #a04000;
-    color: #fff !important;
-}
-
-/* HERO SECTION */
+/* ==========================================================================
+   HERO SECTION (Página de Inicio)
+   ========================================================================== */
 .hero {
     background: linear-gradient(135deg, rgba(30,19,12,0.85) 0%, rgba(93,50,21,0.85) 100%), 
                 url('https://images.unsplash.com/photo-1538688525198-9b88f6f53126?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;
-    color: #fff;
+    color: #FFF;
     padding: 5rem 1.5rem;
     text-align: center;
     border-radius: 0 0 24px 24px;
@@ -459,7 +147,7 @@ body {
 
 .hero p {
     font-size: 1.2rem;
-    color: #e2d1c3;
+    color: #E2D1C3;
     margin-bottom: 2rem;
     line-height: 1.6;
 }
@@ -467,8 +155,8 @@ body {
 .btn-hero {
     display: inline-block;
     padding: 0.95rem 2.2rem;
-    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-    color: #fff;
+    background: linear-gradient(135deg, #E67E22 0%, var(--primary) 100%);
+    color: #FFF;
     font-weight: 700;
     font-size: 1.05rem;
     text-decoration: none;
@@ -482,27 +170,29 @@ body {
     box-shadow: 0 12px 25px rgba(211, 84, 0, 0.6);
 }
 
-/* SECCIÓN PRODUCTOS / DESTACADOS */
-.container {
+/* ==========================================================================
+   SECCIÓN DE PRODUCTOS / GRID
+   ========================================================================== */
+.container-custom {
     max-width: 1140px;
     margin: 4rem auto;
     padding: 0 1.5rem;
 }
 
-.section-title {
+.section-title-wrapper {
     text-align: center;
     margin-bottom: 3rem;
 }
 
-.section-title h2 {
+.section-title-wrapper h2 {
     color: var(--wood-dark);
     font-size: 2.2rem;
     font-weight: 800;
     margin-bottom: 0.5rem;
 }
 
-.section-title p {
-    color: #7d6e6a;
+.section-title-wrapper p {
+    color: var(--text-muted);
     font-size: 1rem;
 }
 
@@ -513,11 +203,11 @@ body {
 }
 
 .product-card {
-    background: #ffffff;
+    background: var(--card-bg);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(62, 39, 35, 0.08);
-    border: 1px solid #f0e6e2;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
     transition: all 0.3s ease;
 }
 
@@ -543,7 +233,7 @@ body {
 }
 
 .product-info p {
-    color: #6e584f;
+    color: var(--text-muted);
     font-size: 0.9rem;
     line-height: 1.5;
     margin-bottom: 1.2rem;
@@ -553,7 +243,7 @@ body {
     display: block;
     text-align: center;
     padding: 0.75rem;
-    background-color: #fcf8f5;
+    background-color: #FCF8F5;
     color: var(--primary);
     border: 2px solid var(--primary);
     border-radius: 8px;
@@ -564,18 +254,233 @@ body {
 
 .btn-card:hover {
     background-color: var(--primary);
-    color: #fff;
+    color: #FFF;
 }
 
-/* BANNER COTIZACIÓN */
+/* ==========================================================================
+   FORMULARIOS Y COTIZACIONES (Quote Card)
+   ========================================================================== */
+.main-content {
+    max-width: 900px;
+    margin: 2.5rem auto;
+    padding: 0 1rem;
+}
+
+.quote-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.quote-card h1 {
+    font-size: 2rem;
+    color: var(--wood-dark);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.quote-card .subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: var(--secondary);
+    border-left: 5px solid var(--primary);
+    padding-left: 10px;
+    margin-top: 2rem;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--wood-dark);
+}
+
+.form-control, input[type="text"], input[type="number"], textarea, select {
+    width: 100%;
+    padding: 0.85rem 1.1rem;
+    background-color: #FCF8F5;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--wood-dark);
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus, input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(217, 107, 39, 0.15);
+}
+
+.dimensions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.btn-submit {
+    display: block;
+    width: 100%;
+    background-color: var(--primary);
+    color: #FFFFFF;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 2rem;
+    box-shadow: 0 4px 12px rgba(217, 107, 39, 0.3);
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   VISTAS DE AUTENTICACIÓN (Login & Registro)
+   ========================================================================== */
+.register-wrapper, .login-wrapper {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.register-card, .login-card {
+    width: 100%;
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2.8rem 2.2rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 20px rgba(212, 163, 115, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.register-header, .login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.brand-badge {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #E67E22, var(--primary));
+    color: #FFFFFF;
+    font-size: 2.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem auto;
+    box-shadow: 0 8px 20px rgba(211, 84, 0, 0.4);
+    border: 3px solid #FFF;
+}
+
+.register-header h2, .login-header h2 {
+    color: var(--wood-dark);
+    font-size: 2.1rem;
+    font-weight: 800;
+    margin: 0 0 0.4rem 0;
+}
+
+.register-header p, .login-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.btn-register-action, .btn-login {
+    width: 100%;
+    padding: 0.95rem;
+    background: linear-gradient(135deg, #E67E22 0%, var(--primary) 100%);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(211, 84, 0, 0.35);
+    transition: all 0.3s ease;
+    margin-top: 0.8rem;
+}
+
+.btn-register-action:hover, .btn-login:hover {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    transform: translateY(-2px);
+}
+
+.alert {
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.25rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.alert-danger {
+    background-color: #FCE8E6;
+    color: #C0392B;
+    border: 1px solid #F5B7B1;
+}
+
+.register-footer, .login-footer {
+    text-align: center;
+    margin-top: 1.8rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.92rem;
+    color: var(--text-muted);
+}
+
+.register-footer a, .login-footer a {
+    color: var(--primary);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.register-footer a:hover, .login-footer a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   BANNER DE COTIZACIÓN (Inferior)
+   ========================================================================== */
 .quote-banner {
     background: linear-gradient(135deg, var(--wood-dark), var(--wood-medium));
-    color: #fff;
+    color: #FFF;
     border-radius: 20px;
     padding: 3rem 2rem;
     text-align: center;
-    margin-top: 4rem;
+    margin: 4rem auto;
     box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    max-width: 1140px;
 }
 
 .quote-banner h3 {
@@ -584,7 +489,17 @@ body {
 }
 
 .quote-banner p {
-    color: #e2d1c3;
+    color: #E2D1C3;
     max-width: 600px;
     margin: 0 auto 2rem auto;
+}
+
+@media (max-width: 768px) {
+    .dimensions-grid {
+        grid-template-columns: 1fr;
+    }
+    .header-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }

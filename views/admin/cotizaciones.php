@@ -1,129 +1,70 @@
-<!-- views/admin/cotizaciones.php -->
-
-<style>
-.admin-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+?>
+<link rel="stylesheet" href="<?= BASE_URL ?>css/styles.css">
 
-.admin-header {
-    margin-bottom: 2rem;
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 1rem;
-}
+<header class="main-header">
+    <div class="logo">
+        <a href="<?= BASE_URL ?>">🪚 CarpinArt</a>
+    </div>
+    <nav class="nav-links">
+        <a href="<?= BASE_URL ?>">Inicio</a>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <span class="user-welcome">Hola, <?= htmlspecialchars($_SESSION['user_nombre'] ?? 'Usuario') ?></span>
+            <a href="<?= BASE_URL ?>index.php?url=logout" class="btn-logout">Cerrar Sesión</a>
+        <?php else: ?>
+            <a href="<?= BASE_URL ?>index.php?url=login">Login</a>
+            <a href="<?= BASE_URL ?>index.php?url=registro" class="btn-register">Registro</a>
+        <?php endif; ?>
+    </nav>
+</header>
 
-.admin-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.admin-table th, .admin-table td {
-    padding: 0.85rem;
-    border-bottom: 1px solid #eee;
-    font-size: 0.9rem;
-}
-
-.admin-table th {
-    background-color: #3e2723;
-    color: #fff;
-    text-align: left;
-}
-
-.form-quote {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    background: #fdfdfd;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.form-quote input, .form-quote textarea {
-    padding: 0.4rem;
-    font-size: 0.85rem;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
-
-.btn-responder {
-    background: #2e7d32;
-    color: #fff;
-    border: none;
-    padding: 0.4rem;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-.btn-responder:hover {
-    background: #1b5e20;
-}
-</style>
-
-<div class="admin-container">
-    <div class="admin-header">
-        <h2>Gestión de Cotizaciones - Taller CarpinArt</h2>
+<div class="container" style="margin-top: 3rem; margin-bottom: 3rem; max-width: 800px; background: #fff; padding: 2.5rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h2>Solicita tu Mueble a Medida</h2>
+        <p>Cuéntanos tu idea. Diseñamos y fabricamos piezas exclusivas ajustadas a tus necesidades.</p>
     </div>
 
-    <table class="admin-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Cliente</th>
-                <th>Proyecto</th>
-                <th>Medidas y Material</th>
-                <th>Presupuesto Cliente</th>
-                <th>Estado</th>
-                <th>Gestionar Cotización</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($cotizaciones as $cot): ?>
-                <tr>
-                    <td>#<?= $cot['id']; ?></td>
-                    <td>
-                        <strong><?= Security::sanitizeString($cot['cliente_nombre']); ?></strong><br>
-                        <small><?= Security::sanitizeString($cot['cliente_email']); ?></small>
-                    </td>
-                    <td>
-                        <strong><?= Security::sanitizeString($cot['titulo_proyecto']); ?></strong><br>
-                        <small><?= Security::sanitizeString($cot['descripcion_diseno']); ?></small>
-                    </td>
-                    <td>
-                        <b>Mat:</b> <?= Security::sanitizeString($cot['material_nombre'] ?? 'Por asesorar'); ?><br>
-                        <small><?= "{$cot['largo_cm']}x{$cot['ancho_cm']}x{$cot['alto_cm']} cm"; ?></small>
-                    </td>
-                    <td>$<?= number_format($cot['presupuesto_estimado_cliente'] ?? 0, 2); ?></td>
-                    <td><span class="badge"><?= $cot['estado']; ?></span></td>
-                    <td>
-                        <?php if (in_array($cot['estado'], ['pendiente', 'en_revision'])): ?>
-                            <form action="<?= BASE_URL ?>admin/cotizaciones/guardar" method="POST" class="form-quote">
-                                <input type="hidden" name="cotizacion_id" value="<?= $cot['id']; ?>">
-                                
-                                <label>Precio ($):</label>
-                                <input type="number" step="0.01" name="precio_cotizado" required placeholder="0.00">
-                                
-                                <label>Días hábiles:</label>
-                                <input type="number" name="tiempo_estimado_dias" required placeholder="Ej: 15">
-                                
-                                <label>Notas del carpintero:</label>
-                                <textarea name="notas_carpintero" rows="2" placeholder="Detalles de madera, acabados..."></textarea>
-                                
-                                <button type="submit" class="btn-responder">Enviar Cotización</button>
-                            </form>
-                        <?php else: ?>
-                            <small><b>Precio:</b> $<?= number_format($cot['precio_cotizado_carpintero'], 2); ?></small><br>
-                            <small><b>Días:</b> <?= $cot['tiempo_estimado_dias']; ?> días</small>
-                        <?php endif; ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <?php if (isset($_SESSION['user_id'])): ?>
+        <form action="<?= BASE_URL ?>cotizacion/guardar" method="POST" style="display: flex; flex-direction: column; gap: 1.2rem;">
+            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                <label style="font-weight: 600; color: #3e2723;">Título del Proyecto:</label>
+                <input type="text" name="titulo_proyecto" required placeholder="Ej: Escritorio moderno" style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                <label style="font-weight: 600; color: #3e2723;">Descripción o Diseño:</label>
+                <textarea name="descripcion_diseno" rows="4" required placeholder="Describe detalles y estilo..." style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                    <label style="font-weight: 600; color: #3e2723;">Largo (cm):</label>
+                    <input type="number" name="largo_cm" step="0.1" required style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                    <label style="font-weight: 600; color: #3e2723;">Ancho (cm):</label>
+                    <input type="number" name="ancho_cm" step="0.1" required style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                    <label style="font-weight: 600; color: #3e2723;">Alto (cm):</label>
+                    <input type="number" name="alto_cm" step="0.1" required style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                <label style="font-weight: 600; color: #3e2723;">Presupuesto Estimado ($):</label>
+                <input type="number" step="0.01" name="presupuesto_estimado_cliente" placeholder="Ej: 500000" style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+
+            <button type="submit" style="margin-top: 1rem; padding: 0.85rem; background: #3e2723; color: #fff; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Enviar Solicitud 🪚</button>
+        </form>
+    <?php else: ?>
+        <div style="text-align: center; padding: 2rem;">
+            <p style="margin-bottom: 1rem; color: #555;">Debes iniciar sesión para solicitar una cotización.</p>
+            <a href="<?= BASE_URL ?>index.php?url=login" style="padding: 0.75rem 1.5rem; background: #3e2723; color: #fff; border-radius: 4px; text-decoration: none; font-weight: bold;">Iniciar Sesión</a>
+        </div>
+    <?php endif; ?>
 </div>

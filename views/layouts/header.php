@@ -1,10 +1,20 @@
-<!-- views/layouts/header.php -->
+<?php
+// Asegurarse de que la sesión esté iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Detectar el rol de forma segura y flexible (soporta 'role', 'rol' o 'user_rol')
+$rolActual = $_SESSION['role'] ?? $_SESSION['rol'] ?? $_SESSION['user_rol'] ?? '';
+$isAdmin = ($rolActual === 'admin');
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CarpinArt - Muebles a Medida</title>
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/styles.css">
     <!-- Bootstrap 5 CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome Iconos -->
@@ -26,7 +36,6 @@
             color: #333;
         }
 
-        /* Navbar de Impacto */
         .navbar-custom {
             background-color: var(--wood-dark) !important;
             border-bottom: 4px solid var(--wood-amber);
@@ -74,7 +83,6 @@
             background-color: #B85213;
         }
 
-        /* Estilos generales para tarjetas de cotización */
         .card-custom {
             border: none;
             border-radius: 12px;
@@ -92,34 +100,7 @@
 </head>
 <body>
 
-<?php
-// Asegurarse de que la sesión esté iniciada para verificar el estado del usuario
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
-
-<header style="background: #2c1d1a; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; color: #fff;">
-    <div class="logo">
-        <a href="<?= BASE_URL ?>" style="color: #fff; text-decoration: none; font-size: 1.5rem; font-weight: bold;">🪚 CarpinArt</a>
-    </div>
-    
-    <nav style="display: flex; gap: 1.5rem; align-items: center;">
-        <!-- Opción Inicio -->
-        <a href="<?= BASE_URL ?>" style="color: #fff; text-decoration: none; font-weight: 600;">Inicio</a>
-        
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <!-- Si el usuario ya inició sesión -->
-            <span style="color: #d35400; font-weight: bold;">Hola, <?= htmlspecialchars($_SESSION['user_nombre'] ?? 'Usuario') ?></span>
-            <a href="<?= BASE_URL ?>index.php?url=logout" style="color: #ffc107; text-decoration: none; font-weight: 600;">Cerrar Sesión</a>
-        <?php else: ?>
-            <!-- Si el usuario NO ha iniciado sesión (muestra Login y Registro) -->
-            <a href="<?= BASE_URL ?>index.php?url=login" style="color: #fff; text-decoration: none; font-weight: 600;">Login</a>
-            <a href="<?= BASE_URL ?>index.php?url=registro" style="background: #d35400; color: #fff; padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 700;">Registro</a>
-        <?php endif; ?>
-    </nav>
-</header>
-
+<!-- Navbar Única, Moderna y Adaptativa -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top py-2">
     <div class="container">
         <!-- Logo con Icono de Carpintería -->
@@ -144,30 +125,40 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li class="nav-item">
                     <a class="nav-link" href="<?= BASE_URL ?>"><i class="fa-solid fa-house me-1"></i> Inicio</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= BASE_URL ?>cotizacion/crear"><i class="fa-solid fa-ruler-combined me-1"></i> Cotizar Mueble</a>
-                </li>
 
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
+                    
+                    <?php if ($isAdmin): ?>
+                        <!-- OPCIONES DE ADMINISTRADOR -->
                         <li class="nav-item">
                             <a class="btn btn-outline-warning btn-sm" href="<?= BASE_URL ?>admin/cotizaciones">
                                 <i class="fa-solid fa-screwdriver-wrench me-1"></i> Panel Taller
                             </a>
                         </li>
                     <?php else: ?>
+                        <!-- OPCIONES DE CLIENTE -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= BASE_URL ?>cotizacion/crear"><i class="fa-solid fa-ruler-combined me-1"></i> Cotizar Mueble</a>
+                        </li>
                         <li class="nav-item">
                             <a class="btn btn-outline-light btn-sm" href="<?= BASE_URL ?>cotizacion/misCotizaciones">
                                 <i class="fa-solid fa-folder-open me-1"></i> Mis Cotizaciones
                             </a>
                         </li>
                     <?php endif; ?>
+
+                    <!-- Saludo y Botón Salir -->
+                    <li class="nav-item ms-lg-3 text-light d-flex align-items-center">
+                        <span class="small">Hola, <strong><?= htmlspecialchars($_SESSION['user_nombre'] ?? 'Usuario') ?></strong></span>
+                    </li>
                     <li class="nav-item ms-lg-2">
                         <a class="btn btn-danger btn-sm" href="<?= BASE_URL ?>logout">
                             <i class="fa-solid fa-right-from-bracket me-1"></i> Salir
                         </a>
                     </li>
+
                 <?php else: ?>
+                    <!-- Si NO ha iniciado sesión -->
                     <li class="nav-item">
                         <a class="nav-link" href="<?= BASE_URL ?>login">Iniciar Sesión</a>
                     </li>

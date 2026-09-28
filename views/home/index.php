@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 ?>
 <!-- Enlace al archivo CSS externo -->
-<link rel="stylesheet" href="<?= BASE_URL ?>css/style.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>css/styles.css">
 
 <!-- HEADER / NAVEGACIÓN -->
 <header class="main-header">
@@ -36,7 +36,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <!-- CATÁLOGO -->
 <div class="container">
-    <div class="section-title">
+    <div class="section-title-wrapper">
         <h2>Trabajos Destacados</h2>
         <p>Explora algunas de nuestras creaciones exclusivas</p>
     </div>
